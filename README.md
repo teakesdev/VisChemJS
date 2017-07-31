@@ -22,7 +22,7 @@ Additionally, this app will contain the following:
 
 This app will consist of a single viewing window in which users will alter a chemical scaffold to create whatever molecules they wish.
 
-![wireframes](VisChemJS.jpeg)
+![wireframes](VisChemJS.jpg)
 
 ### Architecture and Technologies
 
