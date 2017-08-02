@@ -79,7 +79,8 @@ let canvas,
     dragStopCoords,
     fillBox,
     snapshot,
-    lastAtom;
+    lastAtom,
+    bondType;
 
 let structure = [];
 
@@ -90,14 +91,64 @@ function getCanvasCoordinates(event) {
         return {x: x, y: y};
 }
 
-function drawHitCircle(position) {
-  //position = dragStopCoords
-  let circleCtx = context.getContent('2d');
-  let midX = (position.x + dragStartCoords.x)/2;
-  let midY = (position.y + dragStartCoords.y)/2;
-  let radius = Math.sqrt(Math.pow((position.x - midX), 2) + Math.pow((position.y - midY), 2));
+// function drawHitCircle(position) {
+//   //position = dragStopCoords
+//   let circleCtx = context.getContent('2d');
+//   let midX = (position.x + dragStartCoords.x)/2;
+//   let midY = (position.y + dragStartCoords.y)/2;
+//   let radius = Math.sqrt(Math.pow((position.x - midX), 2) + Math.pow((position.y - midY), 2));
+//   circleCtx.strokeStyle = 'black';
+//   circleCtx.fillStyle = 'black';
+//   circleCtx.lineWidth = 4;
+//   circleCtx.lineCap = 'round';
+//   circleCtx.arc(midX, midY, radius, 0, 2*Math.pi);
+//   circleCtx.stroke();
+// }
 
-  circleCtx.arc(midX, midY, radius,sAngle,eAngle,counterclockwise);
+function draw(position) {
+
+    if (bondType === "single") {
+        drawBond(position);
+    }
+
+    if (bondType === "double") {
+        drawDoubleBond(position);
+    }
+
+    if (bondType === "triple") {
+        drawTripleBond(position);
+    }
+}
+
+function drawTripleBond(position) {
+
+  context.beginPath();
+  context.moveTo(dragStartCoords.x, dragStartCoords.y);
+  context.lineTo(position.x, position.y);
+  context.stroke();
+
+  context.beginPath();
+  context.moveTo(dragStartCoords.x, dragStartCoords.y + 10);
+  context.lineTo(position.x, position.y + 10);
+  context.stroke();
+
+  context.beginPath();
+  context.moveTo(dragStartCoords.x, dragStartCoords.y - 10);
+  context.lineTo(position.x, position.y - 10);
+  context.stroke();
+
+}
+
+function drawDoubleBond(position) {
+  context.beginPath();
+  context.moveTo(dragStartCoords.x, dragStartCoords.y);
+  context.lineTo(position.x, position.y);
+  context.stroke();
+
+  context.beginPath();
+  context.moveTo(dragStartCoords.x, dragStartCoords.y + 10);
+  context.lineTo(position.x, position.y + 10);
+  context.stroke();
 }
 
 function drawBond(position) {
@@ -165,7 +216,7 @@ function drag(event) {
   if (dragging) {
     restoreSnapshot();
     let position = getCanvasCoordinates(event);
-    drawBond(position);
+    drawTripleBond(position);
   }
 }
 
@@ -179,8 +230,8 @@ function dragStop(event) {
     newAtom.attachAtom(lastAtom);
     lastAtom.attachAtom(newAtom);
   }
-  drawBond(position);
-  drawHitCircle(position);
+  drawTripleBond(position);
+  // drawHitCircle(position);
 }
 
 function init() {
