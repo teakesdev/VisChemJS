@@ -7,8 +7,9 @@ let canvas,
     dragStopCoords,
     fillBox,
     snapshot,
-    lastAtom,
-    bondType;
+    lastAtom;
+
+let bondType = 'single';
 
 let structure = [];
 
@@ -46,6 +47,27 @@ function draw(position) {
     if (bondType === "triple") {
         drawTripleBond(position);
     }
+
+    if (bondType === 'ketone') {
+      drawKetone(position);
+    }
+}
+
+function drawKetone(position) {
+  context.beginPath();
+  context.moveTo(dragStartCoords.x, dragStartCoords.y);
+  context.lineTo(position.x, position.y);
+  context.stroke();
+
+  context.beginPath();
+  context.moveTo(dragStartCoords.x - 10, dragStartCoords.y);
+  context.lineTo(position.x - 10, position.y);
+  context.stroke();
+
+
+  context.beginPath();
+   context.arc(dragStopCoords.x, dragStopCoords.y + 10, 10, 2*Math.pi, 2*Math.pi);
+   context.stroke();
 }
 
 function drawTripleBond(position) {
@@ -69,13 +91,13 @@ function drawTripleBond(position) {
 
 function drawDoubleBond(position) {
   context.beginPath();
-  context.moveTo(dragStartCoords.x, dragStartCoords.y);
-  context.lineTo(position.x, position.y);
+  context.moveTo(dragStartCoords.x + 5, dragStartCoords.y - 5);
+  context.lineTo(position.x + 5, position.y - 5);
   context.stroke();
 
   context.beginPath();
-  context.moveTo(dragStartCoords.x, dragStartCoords.y + 10);
-  context.lineTo(position.x, position.y + 10);
+  context.moveTo(dragStartCoords.x - 5, dragStartCoords.y + 5);
+  context.lineTo(position.x - 5, position.y + 5);
   context.stroke();
 }
 
@@ -185,6 +207,10 @@ function init() {
 
     document.getElementById("triple").addEventListener("click", function(){
         bondType = 'triple';
+    });
+
+    document.getElementById("ketone").addEventListener("click", function(){
+        bondType = 'ketone';
     });
 }
 
