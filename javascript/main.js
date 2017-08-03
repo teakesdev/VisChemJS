@@ -144,7 +144,7 @@ function drag(event) {
   if (dragging) {
     restoreSnapshot();
     let position = getCanvasCoordinates(event);
-    drawTripleBond(position);
+    draw(position);
   }
 }
 
@@ -158,7 +158,7 @@ function dragStop(event) {
     newAtom.attachAtom(lastAtom);
     lastAtom.attachAtom(newAtom);
   }
-  drawTripleBond(position);
+  draw(position);
   // drawHitCircle(position);
 }
 
@@ -174,6 +174,18 @@ function init() {
     canvas.addEventListener('mousedown', dragStart, false);
     canvas.addEventListener('mousemove', drag, false);
     canvas.addEventListener('mouseup', dragStop, false);
+
+    document.getElementById("single").addEventListener("click", function(){
+        bondType = 'single';
+    });
+
+    document.getElementById("double").addEventListener("click", function(){
+        bondType = 'double';
+    });
+
+    document.getElementById("triple").addEventListener("click", function(){
+        bondType = 'triple';
+    });
 }
 
 window.addEventListener('load', init, false);
