@@ -20,20 +20,6 @@ function getCanvasCoordinates(event) {
         return {x: x, y: y};
 }
 
-// function drawHitCircle(position) {
-//   //position = dragStopCoords
-//   let circleCtx = context.getContent('2d');
-//   let midX = (position.x + dragStartCoords.x)/2;
-//   let midY = (position.y + dragStartCoords.y)/2;
-//   let radius = Math.sqrt(Math.pow((position.x - midX), 2) + Math.pow((position.y - midY), 2));
-//   circleCtx.strokeStyle = 'black';
-//   circleCtx.fillStyle = 'black';
-//   circleCtx.lineWidth = 4;
-//   circleCtx.lineCap = 'round';
-//   circleCtx.arc(midX, midY, radius, 0, 2*Math.pi);
-//   circleCtx.stroke();
-// }
-
 function draw(position) {
 
     if (bondType === "single") {
@@ -87,18 +73,49 @@ function draw(position) {
     if (bondType === 'imine') {
       drawImine(position);
     }
+
+    if (bondType === 'benzene') {
+      drawBenzene(position);
+    }
+}
+
+function drawBenzene(position) {
+
+
+  var numberOfSides = 6,
+    size = 60,
+    Xcenter = position.x,
+    Ycenter = position.y;
+
+context.beginPath();
+context.moveTo (Xcenter +  size * Math.cos(0), Ycenter +  size *  Math.sin(0));
+
+for (let i = 1; i <= numberOfSides;i += 1) {
+    context.lineTo (Xcenter + size * Math.cos(i * 2 * Math.PI / numberOfSides), Ycenter + size * Math.sin(i * 2 * Math.PI / numberOfSides));
+
+
+
+
+  let ring1 = new Atom('C', 1, 0, {x: (Xcenter + size * Math.cos(i * 2 * Math.PI / numberOfSides)), y: (Ycenter + size * Math.sin(i * 2 * Math.PI / numberOfSides)) });
+
+
+  // let atom1 = [ring1, ring2, ring3, ring4, ring5, ring6];
+  //
+  // structure.push(...atom1);
+  structure.push(ring1);
+  }
+  context.stroke();
+  context.beginPath();
+  context.moveTo (Xcenter +  size * Math.cos(0), Ycenter +  size *  Math.sin(0));
+  context.arc(Xcenter, Ycenter, 25, 0, 2*Math.pi);
+  context.fill();
+  context.stroke();
+    dragStopCoords = getCanvasCoordinates(event);
+
+
 }
 
 function drawCyclohexane(position) {
-  console.log('inthure');
-  // context.beginPath();
-  // context.moveTo(position.x, position.y);
-  // context.lineTo(position.x + 100, position.y + 50);
-  // context.lineTo(position.x + 50, position.y + 100);
-  // context.lineTo(position.x + 0, position.y + 90);
-  // context.closePath();
-  // context.stroke();
-
   var numberOfSides = 6,
     size = 60,
     Xcenter = position.x,
@@ -211,13 +228,13 @@ function drawDoubleBond(position) {
 
 
     context.beginPath();
-    context.moveTo(dragStartCoords.x + 5, dragStartCoords.y + 5);
-    context.lineTo(position.x + 5, position.y + 5);
+    context.moveTo(dragStartCoords.x , dragStartCoords.y + 5);
+    context.lineTo(position.x , position.y + 5);
     context.stroke();
 
     context.beginPath();
-    context.moveTo(dragStartCoords.x - 5, dragStartCoords.y - 5);
-    context.lineTo(position.x - 5, position.y - 5);
+    context.moveTo(dragStartCoords.x, dragStartCoords.y - 5);
+    context.lineTo(position.x, position.y - 5);
     context.stroke();
   }
   // context.beginPath();
@@ -304,6 +321,10 @@ function makeAtom(position) {
     atom = new Atom('NH', 1, 0, position);
   }
 
+  if (bondType === 'benzene') {
+  return;
+  }
+
 
   // atom = new Atom('C', 4, 0, position);
   structure.push(atom);
@@ -344,14 +365,14 @@ function isAtomAtPos(pos) {
 function dragStart(event) {
   dragging = true;
   dragStartCoords = getCanvasCoordinates(event);
-  if (bondType !== 'cyclohexane') {
+  if (bondType !== 'cyclohexane' && bondType !== 'benzene') {
     if (isAtomAtPos(dragStartCoords) === false) {
       makeCarbon(dragStartCoords);
     } else {
       console.log('falsey value');
     }
   }
-  if (bondType === 'cyclohexane') {
+  if (bondType === 'cyclohexane' || bondType === 'benzene') {
     draw(getCanvasCoordinates(event));
   } else {
   // draw(getCanvasCoordinates(event));
@@ -363,7 +384,7 @@ function dragStart(event) {
 function drag(event) {
 
   if (dragging) {
-    if (bondType !== 'cyclohexane') {
+    if (bondType !== 'cyclohexane' && bondType !== 'benzene') {
     restoreSnapshot();
     let position = getCanvasCoordinates(event);
 
@@ -375,19 +396,19 @@ function drag(event) {
 
 function dragStop(event) {
   dragging = false;
-  if (bondType !== 'cyclohexane') {
+  if (bondType !== 'cyclohexane' && bondType !== 'benzene') {
   restoreSnapshot();
   }
   dragStopCoords = getCanvasCoordinates(event);
   let position = getCanvasCoordinates(event);
   let newAtom = makeAtom(position);
-  if (bondType !== 'cyclohexane') {
+  if (bondType !== 'cyclohexane' && bondType !== 'benzene') {
     if (isAtomAtPos(dragStartCoords)) {
       newAtom.attachAtom(lastAtom);
       lastAtom.attachAtom(newAtom);
     }
   }
-  if (bondType !== 'cyclohexane') {
+  if (bondType !== 'cyclohexane' && bondType !== 'benzene') {
   draw(position);
 }
   console.log(bondType);
@@ -574,6 +595,10 @@ function init() {
 
     document.getElementById("imine").addEventListener("click", function(){
         bondType = 'imine';
+    });
+
+    document.getElementById("benzene").addEventListener("click", function(){
+        bondType = 'benzene';
     });
 }
 

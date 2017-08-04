@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
+  <div id="closer">
   <head>
     <link href="main.css" rel="stylesheet">
     <meta charset="utf-8">
     <title>VisChemJS Molecular Chemistry Draw</title>
-
+    <h1 class="head">VisChemJS Molecular Chemistry Drawing Platform</h1>
     <canvas id="canvas" width="600" height="600">
 
     </canvas>
@@ -15,7 +16,7 @@
   <body>
     <p><!-- Tool Selector -->
 <!-- <select name="selector" id="selector"> -->
-<ul>
+<ul id="yes">
   <li><button id="single" value="single" onclick="bondType = 'single';">SingleBond</button></li>
   <li><button id="double" value="double" onclick="bondType = 'double';">DoubleBond</button></li>
   <li><button id="triple" value="triple" onclick="bondType = 'triple';">TripleBond</button></li>
@@ -29,8 +30,10 @@
   <li><button id="bromine" value="bromine" onclick="bondType = 'bromine';">Bromide</button></li>
   <li><button id="cyclohexane" value="cyclohexane" onclick="bondType = 'cyclohexane';">Cyclohexane</button>
     <li><button id="imine" value="imine" onclick="bondType = 'imine';">Imine</button></li>
+    <li><button id="benzene" value="benzene" onclick="bondType = 'benzene';">Benzene</button></li>
 <!-- </select> -->
 </ul>
 </p>
   </body>
+</div>
 </html>

@@ -4,16 +4,19 @@
   padding: 0;
 }
 
-
+.head {
+  display: flex;
+  align-self: center;
+}
 
 canvas {
   /*display: flex;
   align-self: center;*/
-  position: fixed;
+  position: absolute;
   /*position: relative;*/
   top: 100px;
   left: 200px;
-
+  display: flex;
   border: 1px solid black;
 }
 
