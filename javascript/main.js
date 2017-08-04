@@ -51,6 +51,17 @@ function draw(position) {
     if (bondType === 'ketone') {
       drawKetone(position);
     }
+
+    if (bondType === 'primaryAmine') {
+      drawAmine(position);
+    }
+}
+
+function drawAmine(position) {
+  context.beginPath();
+  context.moveTo(dragStartCoords.x, dragStartCoords.y);
+  context.lineTo(position.x, position.y);
+  context.stroke();
 }
 
 function drawKetone(position) {
@@ -64,10 +75,6 @@ function drawKetone(position) {
   context.lineTo(position.x - 10, position.y);
   context.stroke();
 
-
-  context.beginPath();
-   context.arc(dragStopCoords.x, dragStopCoords.y + 10, 10, 2*Math.pi, 2*Math.pi);
-   context.stroke();
 }
 
 function drawTripleBond(position) {
@@ -181,6 +188,36 @@ function dragStop(event) {
     lastAtom.attachAtom(newAtom);
   }
   draw(position);
+
+  console.log(bondType);
+
+  if (bondType === 'ketone') {
+    console.log('im in bro');
+    context.beginPath();
+    //  context.arc(dragStopCoords.x, dragStopCoords.y + 10, 10, 0, 2*Math.pi);
+    if (dragStopCoords.y >= dragStartCoords.y) {
+      context.font="20px Georgia";
+      context.fillText("O",dragStopCoords.x - 13 ,dragStopCoords.y + 18);
+      context.stroke();
+    } else {
+      context.font="20px Georgia";
+      context.fillText("O",dragStopCoords.x - 13 ,dragStopCoords.y -10);
+      context.stroke();
+    }
+
+  }
+
+  if (bondType === 'primaryAmine') {
+    if (dragStopCoords.y >= dragStartCoords.y) {
+      context.font="20px Georgia";
+      context.fillText("NH2",dragStopCoords.x - 13 ,dragStopCoords.y + 18);
+      context.stroke();
+    } else {
+      context.font="20px Georgia";
+      context.fillText("NH2",dragStopCoords.x - 13 ,dragStopCoords.y -10);
+      context.stroke();
+    }
+  }
   // drawHitCircle(position);
 }
 
@@ -211,6 +248,10 @@ function init() {
 
     document.getElementById("ketone").addEventListener("click", function(){
         bondType = 'ketone';
+    });
+
+    document.getElementById("primaryAmine").addEventListener("click", function(){
+        bondType = 'primaryAmine';
     });
 }
 
