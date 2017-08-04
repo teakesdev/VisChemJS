@@ -11,14 +11,14 @@ VisChemJS is built with HTML5 Canvas, CSS, and Vanilla JavaScript. All DOM manip
 
 Users are given the ability to draw organic chemistry molecules and add common organic functional groups. Utilizing vanilla JavaScript and HTML5 Canvas, users are allowed to click and drag bonds to their desired size.
 
-[buttons](./images/buttons.png)
+![buttons](./images/buttons.png)
 
 
 ### Charge
 
 Bonds automatically connect when within range of other atoms and the atoms internally keep up with their charge. The total molecular charge is kept up with internally and updated upon filling atoms with too many bonds.
 
-[structure](./images/structure.png)
+![structure](./images/structure.png)
 
 ### In the Future
 
