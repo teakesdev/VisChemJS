@@ -612,9 +612,10 @@ function dragStop(event) {
   }
   context.beginPath();
   context.fillStyle = 'white';
-  context.fillRect(50, 50, 40, 20);
+  context.fillRect(50, 20, 110, 100);
+  context.clearRect(50, 20, 110, 100);
   // context.fillBox();
-  context.stroke();
+  // context.stroke();
   context.beginPath();
   context.fillStyle = 'black';
   context.font="20px Georgia";

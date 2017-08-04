@@ -19,6 +19,10 @@ html {
   justify-content: center;
 }
 
+body {
+  background-color: lightgray;
+}
+
 canvas {
   /*display: flex;
   align-self: center;*/

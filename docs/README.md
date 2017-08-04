@@ -19,6 +19,7 @@ Users are given the ability to draw organic chemistry molecules and add common o
 Bonds automatically connect when within range of other atoms and the atoms internally keep up with their charge. The total molecular charge is kept up with internally and updated upon filling atoms with too many bonds.
 
 ![structure](./images/structure.png)
+![charge](./images/changingcharge.png)
 
 ### In the Future
 
