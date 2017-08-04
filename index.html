@@ -3,7 +3,7 @@
   <head>
     <link href="main.css" rel="stylesheet">
     <meta charset="utf-8">
-    <title></title>
+    <title>VisChemJS Molecular Chemistry Draw</title>
 
     <canvas id="canvas" width="600" height="600">
 
@@ -15,12 +15,22 @@
   <body>
     <p><!-- Tool Selector -->
 <!-- <select name="selector" id="selector"> -->
-<button id="single" value="single" onclick="bondType = 'single';">SingleBond</button>
-<button id="double" value="double" onclick="bondType = 'double';">DoubleBond</button>
-<button id="triple" value="triple" onclick="bondType = 'triple';">TripleBond</button>
-<button id="ketone" value="ketone" onclick="bondType = 'ketone';">Ketone</button>
-<button id="primaryAmine" value="primaryAmine" onclick="bondType = 'primaryAmine';">PrimaryAmine</button>
+<ul>
+  <li><button id="single" value="single" onclick="bondType = 'single';">SingleBond</button></li>
+  <li><button id="double" value="double" onclick="bondType = 'double';">DoubleBond</button></li>
+  <li><button id="triple" value="triple" onclick="bondType = 'triple';">TripleBond</button></li>
+  <li><button id="ketone" value="ketone" onclick="bondType = 'ketone';">Ketone</button></li>
+  <li><button id="primaryAmine" value="primaryAmine" onclick="bondType = 'primaryAmine';">1ºAmine</button></li>
+  <li><button id="secondaryAmine" value="secondaryAmine" onclick="bondType = 'secondaryAmine';">2ºAmine</button></li>
+  <li><button id="tertiaryAmine" value="tertiaryAmine" onclick="bondType = 'tertiaryAmine';">3ºAmine</button></li>
+  <li><button id="alcohol" value="alcohol" onclick="bondType = 'alcohol';">Alcohol</button></li>
+  <li><button id="chlorine" value="chlorine" onclick="bondType = 'chlorine';">Chloride</button></li>
+  <li><button id="fluorine" value="fluorine" onclick="bondType = 'fluorine';">Flouride</button></li>
+  <li><button id="bromine" value="bromine" onclick="bondType = 'bromine';">Bromide</button></li>
+  <li><button id="cyclohexane" value="cyclohexane" onclick="bondType = 'cyclohexane';">Cyclohexane</button>
+    <li><button id="imine" value="imine" onclick="bondType = 'imine';">Imine</button></li>
 <!-- </select> -->
+</ul>
 </p>
   </body>
 </html>
