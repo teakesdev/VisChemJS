@@ -4,9 +4,19 @@
   padding: 0;
 }
 
+html {
+  display: flex;
+  /*justify-content: flex-end;*/
+}
+
 .head {
   display: flex;
   align-self: center;
+}
+
+.closer {
+  display: flex;
+  justify-content: center;
 }
 
 canvas {

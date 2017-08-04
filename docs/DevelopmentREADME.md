@@ -16,7 +16,6 @@ VisChemJS will give the user all the tools necessary to reach the following Mini
 Additionally, this app will contain the following:
 
 - [ ] A production Readme
-- [ ] An About modal describing the background, use, and functionality of VisChemJS.
 
 ### Wireframes
 

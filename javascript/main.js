@@ -13,6 +13,15 @@ let bondType = 'single';
 
 let structure = [];
 
+function getStructureCharge() {
+  let charge = 0;
+  for (let i = 0; i < structure.length; i++) {
+    structure[i].changeCharge();
+    charge += structure[i].charge;
+  }
+  return charge;
+}
+
 function getCanvasCoordinates(event) {
     let x = event.clientX - canvas.getBoundingClientRect().left;
     let y = event.clientY - canvas.getBoundingClientRect().top;
@@ -410,6 +419,7 @@ function dragStop(event) {
   }
   if (bondType !== 'cyclohexane' && bondType !== 'benzene') {
   draw(position);
+
 }
   console.log(bondType);
 
@@ -528,6 +538,18 @@ function dragStop(event) {
     }
 
   }
+  context.beginPath();
+  context.fillStyle = 'white';
+  context.fillRect(50, 50, 40, 20);
+  // context.fillBox();
+  context.stroke();
+  context.beginPath();
+  context.fillStyle = 'black';
+  context.font="20px Georgia";
+  context.fillText(`Charge = -${getStructureCharge()}`, 50 ,50);
+  // context.fillText('yes');
+  context.stroke();
+  console.log(getStructureCharge());
 }
 
 
