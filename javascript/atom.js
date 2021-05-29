@@ -1,4 +1,4 @@
-class Atom {
+class Molecule {
   constructor(chemical, oxidation, bonds, position) {
     this.chemical = chemical;
     this.oxidation = oxidation;

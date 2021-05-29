@@ -9,7 +9,7 @@ let canvas,
     snapshot,
     lastAtom;
 
-let bondType = 'single';
+let atomType = 'single';
 
 let structure = [];
 
@@ -31,59 +31,59 @@ function getCanvasCoordinates(event) {
 
 function draw(position) {
 
-    if (bondType === "single") {
+    if (atomType === "single") {
         drawBond(position);
     }
 
-    if (bondType === "double") {
+    if (atomType === "double") {
         drawDoubleBond(position);
     }
 
-    if (bondType === "triple") {
+    if (atomType === "triple") {
         drawTripleBond(position);
     }
 
-    if (bondType === 'ketone') {
+    if (atomType === 'ketone') {
       drawKetone(position);
     }
 
-    if (bondType === 'primaryAmine') {
+    if (atomType === 'primaryAmine') {
       drawAmine(position);
     }
 
-    if (bondType === 'secondaryAmine') {
+    if (atomType === 'secondaryAmine') {
       drawSecondaryAmine(position);
     }
 
-    if (bondType === 'tertiaryAmine') {
+    if (atomType === 'tertiaryAmine') {
       drawTertiaryAmine(position);
     }
 
-    if (bondType === 'alcohol') {
+    if (atomType === 'alcohol') {
       drawAlcohol(position);
     }
 
-    if (bondType === 'chlorine') {
+    if (atomType === 'chlorine') {
       drawHalogen(position);
     }
 
-    if (bondType === 'fluorine') {
+    if (atomType === 'fluorine') {
       drawHalogen(position);
     }
 
-    if (bondType === 'bromine') {
+    if (atomType === 'bromine') {
       drawHalogen(position);
     }
 
-    if (bondType === 'cyclohexane') {
+    if (atomType === 'cyclohexane') {
       drawCyclohexane(position);
     }
 
-    if (bondType === 'imine') {
+    if (atomType === 'imine') {
       drawImine(position);
     }
 
-    if (bondType === 'benzene') {
+    if (atomType === 'benzene') {
       drawBenzene(position);
     }
 }
@@ -278,59 +278,59 @@ function makeAtom(position) {
   // }
   let atom;
 
-  if (bondType === "single") {
+  if (atomType === "single") {
       atom = new Atom('C', 4, 0, position);
   }
 
-  if (bondType === "double") {
+  if (atomType === "double") {
       atom = new Atom('C', 4, 0, position);
   }
 
-  if (bondType === "triple") {
+  if (atomType === "triple") {
       atom = new Atom('C', 4, 0, position);
   }
 
-  if (bondType === 'ketone') {
+  if (atomType === 'ketone') {
     atom = new Atom('O', 1, 0, position);
   }
 
-  if (bondType === 'primaryAmine') {
+  if (atomType === 'primaryAmine') {
     atom = new Atom('N', 1, 0, position);
   }
 
-  if (bondType === 'secondaryAmine') {
+  if (atomType === 'secondaryAmine') {
     atom = new Atom('N', 2, 0, position);
   }
 
-  if (bondType === 'tertiaryAmine') {
+  if (atomType === 'tertiaryAmine') {
     atom = new Atom('N', 3, 0, position);
   }
 
-  if (bondType === 'alcohol') {
+  if (atomType === 'alcohol') {
     atom = new Atom('O', 1, 0, position);
   }
 
-  if (bondType === 'bromine') {
+  if (atomType === 'bromine') {
     atom = new Atom('Br', 1, 0, position);
   }
 
-  if (bondType === 'chlorine') {
+  if (atomType === 'chlorine') {
     atom = new Atom('Cl', 1, 0, position);
   }
 
-  if (bondType === 'fluorine') {
+  if (atomType === 'fluorine') {
     atom = new Atom('F', 1, 0, position);
   }
 
-  if (bondType === 'cyclohexane') {
+  if (atomType === 'cyclohexane') {
   return;
   }
 
-  if (bondType === 'imine') {
+  if (atomType === 'imine') {
     atom = new Atom('NH', 1, 0, position);
   }
 
-  if (bondType === 'benzene') {
+  if (atomType === 'benzene') {
   return;
   }
 
@@ -374,14 +374,14 @@ function isAtomAtPos(pos) {
 function dragStart(event) {
   dragging = true;
   dragStartCoords = getCanvasCoordinates(event);
-  if (bondType !== 'cyclohexane' && bondType !== 'benzene') {
+  if (atomType !== 'cyclohexane' && atomType !== 'benzene') {
     if (isAtomAtPos(dragStartCoords) === false) {
       makeCarbon(dragStartCoords);
     } else {
       console.log('falsey value');
     }
   }
-  if (bondType === 'cyclohexane' || bondType === 'benzene') {
+  if (atomType === 'cyclohexane' || atomType === 'benzene') {
     draw(getCanvasCoordinates(event));
   } else {
   // draw(getCanvasCoordinates(event));
@@ -393,7 +393,7 @@ function dragStart(event) {
 function drag(event) {
 
   if (dragging) {
-    if (bondType !== 'cyclohexane' && bondType !== 'benzene') {
+    if (atomType !== 'cyclohexane' && atomType !== 'benzene') {
     restoreSnapshot();
     let position = getCanvasCoordinates(event);
 
@@ -405,25 +405,24 @@ function drag(event) {
 
 function dragStop(event) {
   dragging = false;
-  if (bondType !== 'cyclohexane' && bondType !== 'benzene') {
+  if (atomType !== 'cyclohexane' && atomType !== 'benzene') {
   restoreSnapshot();
   }
   dragStopCoords = getCanvasCoordinates(event);
   let position = getCanvasCoordinates(event);
   let newAtom = makeAtom(position);
-  if (bondType !== 'cyclohexane' && bondType !== 'benzene') {
+  if (atomType !== 'cyclohexane' && atomType !== 'benzene') {
     if (isAtomAtPos(dragStartCoords)) {
       newAtom.attachAtom(lastAtom);
       lastAtom.attachAtom(newAtom);
     }
   }
-  if (bondType !== 'cyclohexane' && bondType !== 'benzene') {
+  if (atomType !== 'cyclohexane' && atomType !== 'benzene') {
   draw(position);
 
 }
-  console.log(bondType);
 
-  if (bondType === 'ketone') {
+  if (atomType === 'ketone') {
     console.log('im in bro');
     context.beginPath();
     //  context.arc(dragStopCoords.x, dragStopCoords.y + 10, 10, 0, 2*Math.pi);
@@ -438,8 +437,8 @@ function dragStop(event) {
     }
 
   }
-
-  if (bondType === 'primaryAmine') {
+// COULD CONSOLODATE These into one just as we are gonna do bonds
+  if (atomType === 'primaryAmine') {
     if (dragStopCoords.y >= dragStartCoords.y) {
       context.font="20px Georgia";
       context.fillText("NH2",dragStopCoords.x - 13 ,dragStopCoords.y + 18);
@@ -451,7 +450,7 @@ function dragStop(event) {
     }
   }
 
-  if (bondType === 'secondaryAmine') {
+  if (atomType === 'secondaryAmine') {
     if (dragStopCoords.y >= dragStartCoords.y) {
       context.font="20px Georgia";
       context.fillText("NH",dragStopCoords.x - 13 ,dragStopCoords.y + 18);
@@ -463,7 +462,7 @@ function dragStop(event) {
     }
   }
 
-  if (bondType === 'tertiaryAmine') {
+  if (atomType === 'tertiaryAmine') {
     if (dragStopCoords.y >= dragStartCoords.y) {
       context.font="20px Georgia";
       context.fillText("N",dragStopCoords.x - 13 ,dragStopCoords.y + 18);
@@ -475,7 +474,7 @@ function dragStop(event) {
     }
   }
 
-  if (bondType === 'alcohol') {
+  if (atomType === 'alcohol') {
     if (dragStopCoords.y >= dragStartCoords.y) {
       context.font="20px Georgia";
       context.fillText("OH",dragStopCoords.x - 13 ,dragStopCoords.y + 18);
@@ -487,7 +486,7 @@ function dragStop(event) {
     }
   }
 
-  if (bondType === 'chlorine') {
+  if (atomType === 'chlorine') {
     if (dragStopCoords.y >= dragStartCoords.y) {
       context.font="20px Georgia";
       context.fillText("Cl",dragStopCoords.x - 13 ,dragStopCoords.y + 18);
@@ -499,7 +498,7 @@ function dragStop(event) {
     }
   }
 
-  if (bondType === 'bromine') {
+  if (atomType === 'bromine') {
     if (dragStopCoords.y >= dragStartCoords.y) {
       context.font="20px Georgia";
       context.fillText("Br",dragStopCoords.x - 13 ,dragStopCoords.y + 18);
@@ -511,7 +510,7 @@ function dragStop(event) {
     }
   }
 
-  if (bondType === 'fluorine') {
+  if (atomType === 'fluorine') {
     if (dragStopCoords.y >= dragStartCoords.y) {
       context.font="20px Georgia";
       context.fillText("F",dragStopCoords.x - 13 ,dragStopCoords.y + 18);
@@ -523,7 +522,7 @@ function dragStop(event) {
     }
   }
 
-  if (bondType === 'imine') {
+  if (atomType === 'imine') {
     console.log('im in bro');
     context.beginPath();
     //  context.arc(dragStopCoords.x, dragStopCoords.y + 10, 10, 0, 2*Math.pi);
@@ -568,60 +567,63 @@ function init() {
     canvas.addEventListener('mousemove', drag, false);
     canvas.addEventListener('mouseup', dragStop, false);
 
+//We should also try to add hover and bond-click event listeners here
+
+// To Delete
     document.getElementById("single").addEventListener("click", function(){
-        bondType = 'single';
+        atomType = 'single';
     });
 
     document.getElementById("double").addEventListener("click", function(){
-        bondType = 'double';
+        atomType = 'double';
     });
 
     document.getElementById("triple").addEventListener("click", function(){
-        bondType = 'triple';
+        atomType = 'triple';
     });
-
+// 
     document.getElementById("ketone").addEventListener("click", function(){
-        bondType = 'ketone';
+        atomType = 'ketone';
     });
 
     document.getElementById("primaryAmine").addEventListener("click", function(){
-        bondType = 'primaryAmine';
+        atomType = 'primaryAmine';
     });
 
     document.getElementById("secondaryAmine").addEventListener("click", function(){
-        bondType = 'secondaryAmine';
+        atomType = 'secondaryAmine';
     });
 
     document.getElementById("tertiaryAmine").addEventListener("click", function(){
-        bondType = 'tertiaryAmine';
+        atomType = 'tertiaryAmine';
     });
 
     document.getElementById("alcohol").addEventListener("click", function(){
-        bondType = 'alcohol';
+        atomType = 'alcohol';
     });
 
     document.getElementById("bromine").addEventListener("click", function(){
-        bondType = 'bromine';
+        atomType = 'bromine';
     });
 
     document.getElementById("chlorine").addEventListener("click", function(){
-        bondType = 'chlorine';
+        atomType = 'chlorine';
     });
 
     document.getElementById("fluorine").addEventListener("click", function(){
-        bondType = 'fluorine';
+        atomType = 'fluorine';
     });
 
     document.getElementById("cyclohexane").addEventListener("click", function(){
-        bondType = 'cyclohexane';
+        atomType = 'cyclohexane';
     });
 
     document.getElementById("imine").addEventListener("click", function(){
-        bondType = 'imine';
+        atomType = 'imine';
     });
 
     document.getElementById("benzene").addEventListener("click", function(){
-        bondType = 'benzene';
+        atomType = 'benzene';
     });
 }
 
